@@ -217,10 +217,17 @@ public static class ResumeToWordDocumentTemplateTwo
         AddHeading(body, "REFEREE", "28");
         AddParagraph(body, resume.Referee);
     }
-
+    private static Paragraph GetParagraphWithLineSpacing()
+    {
+        return new Paragraph(
+            new ParagraphProperties(
+                new SpacingBetweenLines() { Line = "480", LineRule = LineSpacingRuleValues.Auto }
+            )
+        );
+    }
     private static void AddHeading(Body body, string text, string fontSize)
     {
-        Paragraph para = body.AppendChild(new Paragraph());
+        Paragraph para = body.AppendChild(GetParagraphWithLineSpacing());
         Run run = para.AppendChild(new Run());
         RunProperties runProperties = run.AppendChild(new RunProperties());
         runProperties.AppendChild(new Bold());
@@ -249,7 +256,7 @@ public static class ResumeToWordDocumentTemplateTwo
 
     private static void AddSubHeading(Body body, string text)
     {
-        Paragraph para = body.AppendChild(new Paragraph());
+        Paragraph para = body.AppendChild(GetParagraphWithLineSpacing());
         Run run = para.AppendChild(new Run());
         RunProperties runProperties = run.AppendChild(new RunProperties());
         runProperties.AppendChild(new Bold());
@@ -259,7 +266,7 @@ public static class ResumeToWordDocumentTemplateTwo
 
     private static void AddParagraph(Body body, string text)
     {
-        Paragraph para = body.AppendChild(new Paragraph());
+        Paragraph para = body.AppendChild(GetParagraphWithLineSpacing());
         Run run = para.AppendChild(new Run());
         run.AppendChild(new Text(text));
     }
@@ -276,7 +283,7 @@ public static class ResumeToWordDocumentTemplateTwo
 
     private static void AddBulletPoint(Body body, string text, int level = 0, int numberingId = 1)
     {
-        Paragraph para = body.AppendChild(new Paragraph());
+        Paragraph para = body.AppendChild(GetParagraphWithLineSpacing());
         ParagraphProperties paraProp = para.AppendChild(new ParagraphProperties());
         NumberingProperties numberingProps = paraProp.AppendChild(new NumberingProperties());
         numberingProps.AppendChild(new NumberingLevelReference() { Val = level });
