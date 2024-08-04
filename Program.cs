@@ -22,7 +22,7 @@ app.MapPost("/api/resume", async ([FromBody] Resume resume, HttpContext httpCont
         string filePath = Path.Combine(Path.GetTempPath(), fileName);
 
         // Generate the Word document
-        ResumeToWordDocument.GenerateWordDocument(resume, filePath);
+        ResumeToWordDocumentTemplateTwo.GenerateWordDocument(resume, filePath);
 
         // Read the file into memory
         byte[] fileBytes = await File.ReadAllBytesAsync(filePath);
