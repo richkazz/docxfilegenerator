@@ -199,13 +199,13 @@ public static class ResumeToWordDocumentTemplateTwo
         {
             var year = cert.Date is null ? "N/A" : cert.Date.GetValueOrDefault().Year.ToString();
             AddBulletPoint(body, $"{cert.Name} - {cert.Organization} {year}");
-            AddHyperlink(wordDocument, body, "Verify online", cert.VerificationLink);
+            AddHyperlink(mainPart, body, "Verify online", cert.VerificationLink);
         }
 
         // Add contact information
         AddHeading(body, "CONTACT INFORMATION:", "28");
         AddParagraph(body, $"LinkedIn: ");
-        AddHyperlink(wordDocument, body, resume.ContactInformation.LinkedIn, resume.ContactInformation.LinkedIn);
+        AddHyperlink(mainPart, body, resume.ContactInformation.LinkedIn, resume.ContactInformation.LinkedIn);
 
         // Add referee
         AddHeading(body, "REFEREE", "28");
@@ -260,10 +260,8 @@ public static class ResumeToWordDocumentTemplateTwo
         run.AppendChild(new Text(text));
     }
 
-    private static void AddHyperlink(WordprocessingDocument wordDocument, Body body, string text, string url)
+    private static void AddHyperlink(MainDocumentPart mainPart, Body body, string text, string url)
     {
-
-        MainDocumentPart mainPart = wordDocument.AddMainDocumentPart();
         // Add hyperlink relationship
         HyperlinkRelationship hyperlinkRelationship = mainPart.AddHyperlinkRelationship(new Uri(url), true);
         string relationshipId = hyperlinkRelationship.Id;
