@@ -242,7 +242,10 @@ public static class ResumeToWordDocumentTemplateTwo
             new AbstractNum(
                 new Level(
                     new NumberingFormat() { Val = NumberFormatValues.Bullet },
-                    new LevelText() { Val = "•" }
+                    new LevelText() { Val = "•" },
+                     new ParagraphProperties(
+                            new SpacingBetweenLines() { Line = "480", LineRule = LineSpacingRuleValues.Auto }
+                        )
                 )
                 { LevelIndex = 0 }
             )
