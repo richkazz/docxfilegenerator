@@ -130,6 +130,7 @@ public static class ResumeToWordDocumentTemplateTwo
         mainPart.Document = new Document();
         Body body = mainPart.Document.AppendChild(new Body());
 
+        AddNumberingDefination(mainPart);
         // Add name and contact info
         AddCenteredParagraph(body, resume.Name ?? "", true, "36");
         AddCenteredParagraph(body, resume.Address ?? "", false, "24");
@@ -226,6 +227,25 @@ public static class ResumeToWordDocumentTemplateTwo
         runProperties.AppendChild(new FontSize() { Val = fontSize });
         run.AppendChild(new Text(text));
     }
+    private static void AddNumberingDefination(MainDocumentPart mainPart)
+    {
+        // Add numbering definitions
+        NumberingDefinitionsPart numberingPart = mainPart.AddNewPart<NumberingDefinitionsPart>();
+        numberingPart.Numbering = new Numbering(
+            new AbstractNum(
+                new Level(
+                    new NumberingFormat() { Val = NumberFormatValues.Bullet },
+                    new LevelText() { Val = "•" }
+                )
+                { LevelIndex = 0 }
+            )
+            { AbstractNumberId = 1 },
+            new NumberingInstance(
+                new AbstractNumId() { Val = 1 }
+            )
+            { NumberID = 1 }
+        );
+    }
 
     private static void AddSubHeading(Body body, string text)
     {
@@ -254,17 +274,16 @@ public static class ResumeToWordDocumentTemplateTwo
         run.AppendChild(new Text(text));
     }
 
-    private static void AddBulletPoint(Body body, string text, int level = 0)
+    private static void AddBulletPoint(Body body, string text, int level = 0, int numberingId = 1)
     {
         Paragraph para = body.AppendChild(new Paragraph());
         ParagraphProperties paraProp = para.AppendChild(new ParagraphProperties());
         NumberingProperties numberingProps = paraProp.AppendChild(new NumberingProperties());
         numberingProps.AppendChild(new NumberingLevelReference() { Val = level });
-        numberingProps.AppendChild(new NumberingId() { Val = 1 });
+        numberingProps.AppendChild(new NumberingId() { Val = numberingId });
         Run run = para.AppendChild(new Run());
         run.AppendChild(new Text(text));
     }
-
     private static void AddHyperlink(MainDocumentPart mainPart, Body body, string text, string url)
     {
         // Add hyperlink relationship
