@@ -199,14 +199,19 @@ public static class ResumeToWordDocumentTemplateTwo
         {
             var year = cert.Date is null ? "N/A" : cert.Date.GetValueOrDefault().Year.ToString();
             AddBulletPoint(body, $"{cert.Name} - {cert.Organization} {year}");
-            AddHyperlink(mainPart, body, "Verify online", cert.VerificationLink);
+            if (!string.IsNullOrWhiteSpace(cert.VerificationLink))
+            {
+                AddHyperlink(mainPart, body, "Verify online", cert.VerificationLink);
+            }
         }
 
         // Add contact information
         AddHeading(body, "CONTACT INFORMATION:", "28");
         AddParagraph(body, $"LinkedIn: ");
-        AddHyperlink(mainPart, body, resume.ContactInformation.LinkedIn, resume.ContactInformation.LinkedIn);
-
+        if (!string.IsNullOrWhiteSpace(resume.ContactInformation.LinkedIn))
+        {
+            AddHyperlink(mainPart, body, resume.ContactInformation.LinkedIn, resume.ContactInformation.LinkedIn);
+        }
         // Add referee
         AddHeading(body, "REFEREE", "28");
         AddParagraph(body, resume.Referee);
