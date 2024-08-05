@@ -154,7 +154,7 @@ public static class ResumeToWordDocumentTemplateTwo
                 AddBulletPoint(body, "Key Features:");
                 foreach (var feature in project.KeyFeatures)
                 {
-                    AddBulletPoint(body, feature, 1);
+                    AddBulletPoint(body, feature, 2);
                 }
             }
         }
